@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"],
+      "exclude": ["no-explicit-any"]
+    }
+  },
+  "fmt": {
+    "options": {
+      "useTabs": false,
+      "lineWidth": 120,
+      "indentWidth": 2,
+      "singleQuote": true
+    }
+  },
+  "tasks": {
+    "fetch": "deno run --allow-read --allow-write --allow-net index.ts fetch",
+    "compile:macosx": "deno compile --allow-read --allow-write --allow-net --target x86_64-apple-darwin -o build/macos index.ts fetch",
+    "compile:linux": "deno compile --allow-read --allow-write --allow-net --target x86_64-unknown-linux-gnu -o build/linux index.ts fetch",
+    "compile:windows": "deno compile --allow-read --allow-write --allow-net --target x86_64-pc-windows-msvc -o build/windows index.ts fetch"
+  }
+}

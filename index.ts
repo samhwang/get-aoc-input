@@ -1,7 +1,7 @@
 import * as path from 'https://deno.land/std@0.167.0/path/mod.ts';
 import Denomander from 'https://deno.land/x/denomander@0.9.3/mod.ts';
 
-const CURRENT_YEAR = 2022;
+const CURRENT_YEAR = new Date().getFullYear();
 
 const program = new Denomander({
   app_name: 'aocinput',
@@ -14,7 +14,7 @@ program
   .requiredOption('-s, --session', 'The session cookie')
   .option(
     '-y, --year',
-    'The year for Advent of Code challenge (default: 2022)',
+    'The year for Advent of Code challenge',
     (input: string) => Number.parseInt(input),
     CURRENT_YEAR,
   )

@@ -1,6 +1,6 @@
 # Get Advent of Code input
 
-Getting an Advent of Code 2022 input for a specific date. Built with [Deno](https://deno.land).
+Getting an Advent of Code input for a specific date. Built with [Deno](https://deno.land).
 
 ## Command line usage
 
@@ -18,7 +18,7 @@ Required Options:
 Options:
 -h --help     Help Screen
 -o, --output  The output folder location (default is the day from dayOption `day3`, `day4`...)
--y, --year    The year for Advent of Code challenge (default: 2022)	(default: 2022)
+-y, --year    The year for Advent of Code challenge	(default: 2022)
 ```
 
 ## Running the script locally
@@ -35,5 +35,5 @@ deno run \
   --allow-write \
   --allow-net \
   https://raw.githubusercontent.com/samhwang/get-aoc-input/master/index.ts \
-  fetch -d [day] -s [session token]
+  fetch -s [session token] -d [day]
 ```

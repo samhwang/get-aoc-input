@@ -1,5 +1,5 @@
-import * as path from 'https://deno.land/std@0.167.0/path/mod.ts';
 import Denomander from 'https://deno.land/x/denomander@0.9.3/mod.ts';
+import { fetchCommand } from './commands.ts';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -8,6 +8,14 @@ const program = new Denomander({
   app_description: 'Fetch Advent of Code input',
   app_version: '1.0.0',
 });
+
+type CommandInput = {
+  year: string;
+  day: string;
+  session: string;
+  output: string;
+};
+
 program
   .command('fetch', 'Fetch an AOC input for the day')
   .requiredOption('-d, --day', 'The day to fetch')
@@ -19,26 +27,6 @@ program
     CURRENT_YEAR,
   )
   .option('-o, --output', 'The output folder location (default is the day from dayOption `day3`, `day4`...)')
-  .parse(Deno.args);
+  .action(({ year, day, session, output }: CommandInput) => fetchCommand(year, day, session, output));
 
-const { day, session, output } = program;
-
-try {
-  console.log(`RETRIEVING INPUT FROM AOC FOR DAY ${day}`);
-  const result = await fetch(`https://adventofcode.com/${CURRENT_YEAR}/day/${day}/input`, {
-    credentials: 'same-origin',
-    headers: {
-      Cookie: `session=${session}`,
-    },
-  });
-  const rawData = await result.text();
-
-  const outputDir = output ?? path.join('.', `day${day}`);
-  await Deno.mkdir(outputDir);
-
-  const outputPath = path.join(outputDir, `input.txt`);
-  await Deno.writeTextFile(outputPath, rawData);
-  console.log('RETRIEVE INPUT FROM AOC COMPLETE');
-} catch (e) {
-  console.error('Error retrieving AOC Input', e);
-}
+program.parse(Deno.args);

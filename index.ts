@@ -1,5 +1,5 @@
 import Denomander from 'https://deno.land/x/denomander@0.9.3/mod.ts';
-import { fetchCommand } from './commands.ts';
+import { fetchCommand, scaffoldCommand } from './commands.ts';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -28,5 +28,18 @@ program
   )
   .option('-o, --output', 'The output folder location (default is the day from dayOption `day3`, `day4`...)')
   .action(({ year, day, session, output }: CommandInput) => fetchCommand(year, day, session, output));
+
+program
+  .command('scaffold', 'Scaffold an AOC folder for the day\'s task')
+  .requiredOption('-d, --day', 'The day to fetch')
+  .requiredOption('-s, --session', 'The session cookie')
+  .option(
+    '-y, --year',
+    'The year for Advent of Code challenge',
+    (input: string) => Number.parseInt(input),
+    CURRENT_YEAR,
+  )
+  .option('-o, --output', 'The output folder location (default is the day from dayOption `day3`, `day4`...)')
+  .action(({ year, day, session, output }: CommandInput) => scaffoldCommand(year, day, session, output));
 
 program.parse(Deno.args);
